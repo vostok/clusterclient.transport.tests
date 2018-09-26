@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
 using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Transport.Sockets.Tests;
 using Vostok.ClusterClient.Transport.Tests.Functional.Helpers;
 using Vostok.Commons.Threading;
 
