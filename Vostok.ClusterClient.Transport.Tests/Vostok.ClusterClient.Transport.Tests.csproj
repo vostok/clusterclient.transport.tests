@@ -1,34 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  
-  <Import Project="..\..\vostok.devtools\library-common-props\Main-Project.props" />
+  <Import Project="..\..\vostok.devtools\library-common-props\Test-Project.props" />
   <Import Project="..\..\vostok.devtools\git-commit-to-assembly-title\Vostok.Tools.GitCommit2AssemblyTitle.props" />
-  <Import Project="..\..\vostok.devtools\publicize.roslyn\Vostok.Tools.Publicize.Roslyn.props" Condition="'$(Configuration)'=='Release'" />
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Configurations>Debug;Release</Configurations>
+    <TargetFrameworks>netstandard20</TargetFrameworks>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <VersionPrefix>0.0.1</VersionPrefix>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Title>TODO</Title>
-    <Description>TODO</Description>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <PackageProjectUrl>https://github.com/vostok/clusterclient.transport.tests</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/vostok/clusterclient.transport.tests/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>vostok</PackageTags>
-    <RepositoryUrl>https://github.com/vostok/clusterclient.transport.tests</RepositoryUrl>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vostok.ClusterClient.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.clusterclient.core\Vostok.ClusterClient.Core\bin\Release\netstandard2.0\Vostok.ClusterClient.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Vostok.Logging.Abstractions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\vostok.logging.abstractions\Vostok.Logging.Abstractions\bin\Release\netstandard2.0\Vostok.Logging.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\vostok.devtools\jetbrains-annotations\JetbrainsAnnotations.cs" Link="External\JetBrainsAnnotations.cs" />
+    <Compile Include="..\..\vostok.commons.threading\Vostok.Commons.Threading\ThreadSafeRandom.cs" Link="Utilities\ThreadSafeRandom.cs" />
+    <Compile Include="..\..\vostok.commons.testing\Vostok.Commons.Testing\AssertionAssertions.cs" Link="Utilities\AssertionAssertions.cs" />
+  </ItemGroup>
 </Project>

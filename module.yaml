@@ -14,9 +14,13 @@ notests *default:
     - Vostok.ClusterClient.Transport.Tests/bin/Release/netstandard2.0/Vostok.ClusterClient.Transport.Tests.dll
 
   deps:
-    - vostok.devtools
 
 full-build > notests:
   build:
+    - vostok.logging.abstractions
+    - vostok.clusterclient.core@develop
+    - vostok.devtools
+    - vostok.commons.threading
+    - vostok.commons.testing
     target: Vostok.ClusterClient.Transport.Tests.sln
     configuration: Release
