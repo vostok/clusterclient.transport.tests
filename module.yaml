@@ -17,10 +17,11 @@ notests *default:
 
 full-build > notests:
   build:
+    target: Vostok.ClusterClient.Transport.Tests.sln
+    configuration: Release
+  deps:
     - vostok.logging.abstractions
     - vostok.clusterclient.core@develop
     - vostok.devtools
     - vostok.commons.threading
     - vostok.commons.testing
-    target: Vostok.ClusterClient.Transport.Tests.sln
-    configuration: Release
