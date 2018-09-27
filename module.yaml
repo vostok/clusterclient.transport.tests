@@ -5,20 +5,17 @@ src:
 
 notests *default:
   build:
-    target: Vostok.ClusterClient.Transport.Tests.sln
-    configuration: NoTests
-    tool:
-      name: dotnet
+    target: None
+    configuration: None
 
   install:
-    - Vostok.ClusterClient.Transport.Tests/bin/Release/netstandard2.0/Vostok.ClusterClient.Transport.Tests.dll
-
+  
   deps:
 
 full-build > notests:
   build:
-    target: Vostok.ClusterClient.Transport.Tests.sln
-    configuration: Release
+    target: None
+    configuration: None
   deps:
     - vostok.logging.abstractions
     - vostok.clusterclient.core@develop
