@@ -15,10 +15,10 @@ namespace Vostok.ClusterClient.Transport.Tests.Functional
         [TestCase(HeaderNames.Host, "vm-service")]
         [TestCase(HeaderNames.LastModified, "Wed, 21 Oct 2015 07:28:00 GMT")]
         [TestCase(HeaderNames.Location, "http://server:545/file")]
-        [TestCase(HeaderNames.ClientApplication, "Abonents.Service")]
+        [TestCase(HeaderNames.ApplicationIdentity, "Abonents.Service")]
         [TestCase(HeaderNames.RequestPriority, "Sheddable")]
         [TestCase(HeaderNames.RequestTimeout, "345345345")]
-        [TestCase(HeaderNames.ClientApplication, "first,second,third")]
+        [TestCase(HeaderNames.ApplicationIdentity, "first,second,third")]
         public void Should_correctly_receive_given_header_from_server(string headerName, string headerValue)
         {
             using (var server = TestServer.StartNew(

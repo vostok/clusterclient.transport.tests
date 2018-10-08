@@ -54,11 +54,11 @@ namespace Vostok.ClusterClient.Transport.Tests.Functional
         {
             using (var server = TestServer.StartNew(ctx => ctx.Response.StatusCode = 200))
             {
-                var request = Request.Get(server.Url).WithHeader(HeaderNames.ClientApplication, "123");
+                var request = Request.Get(server.Url).WithHeader(HeaderNames.ApplicationIdentity, "123");
 
                 Send(request);
 
-                server.LastRequest.Headers[HeaderNames.ClientApplication].Should().Be("123");
+                server.LastRequest.Headers[HeaderNames.ApplicationIdentity].Should().Be("123");
             }
         }
 
