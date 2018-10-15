@@ -4,11 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
-using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Transport.Tests.Functional.Helpers;
+using Vostok.Clusterclient.Core.Model;
+using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 using Vostok.Commons.Threading;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
     public class ContentSendingTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()

@@ -2,10 +2,10 @@
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
-using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Transport.Tests.Functional.Helpers;
+using Vostok.Clusterclient.Core.Model;
+using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
     public class RequestCancellationTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
@@ -51,7 +51,7 @@ namespace Vostok.ClusterClient.Transport.Tests.Functional
 
         private Response SendWithCancellation(Request request)
         {
-            var sendTask = transport.SendAsync(request, 1.Minutes(), token);
+            var sendTask = transport.SendAsync(request, null, 1.Minutes(), token);
 
             tokenSource.CancelAfter(200.Milliseconds());
 

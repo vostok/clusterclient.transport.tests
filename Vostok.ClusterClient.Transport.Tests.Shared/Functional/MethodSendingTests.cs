@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
-using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Transport.Tests.Functional.Helpers;
+using Vostok.Clusterclient.Core.Model;
+using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
     public class MethodSendingTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
-        [TestCaseSource(nameof(GetAllMethods))]
+        [TestCase(RequestMethods.Delete)]
+        [TestCase(RequestMethods.Get)]
+        [TestCase(RequestMethods.Head)]
+        [TestCase(RequestMethods.Options)]
+        [TestCase(RequestMethods.Patch)]
+        [TestCase(RequestMethods.Post)]
+        [TestCase(RequestMethods.Put)]
+        [TestCase(RequestMethods.Trace)]
         public void Should_be_able_to_send_requests_with_given_method(string method)
         {
             using (var server = TestServer.StartNew(ctx => ctx.Response.StatusCode = 200))
@@ -17,14 +24,6 @@ namespace Vostok.ClusterClient.Transport.Tests.Functional
                 Send(new Request(method, server.Url));
 
                 server.LastRequest.Method.Should().Be(method);
-            }
-        }
-
-        public static IEnumerable<object[]> GetAllMethods()
-        {
-            foreach (var method in RequestMethods.All)
-            {
-                yield return new object[] { method };
             }
         }
     }

@@ -1,9 +1,9 @@
 using FluentAssertions;
 using NUnit.Framework;
-using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Transport.Tests.Utilities;
+using Vostok.Clusterclient.Core.Model;
+using Vostok.Clusterclient.Transport.Tests.Shared.Utilities;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
     public class ConnectionFailureTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()

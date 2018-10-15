@@ -4,9 +4,9 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Vostok.ClusterClient.Transport.Tests.Utilities;
+using Vostok.Clusterclient.Transport.Tests.Shared.Utilities;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional.Helpers
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
 {
     public class TestServer : IDisposable
     {

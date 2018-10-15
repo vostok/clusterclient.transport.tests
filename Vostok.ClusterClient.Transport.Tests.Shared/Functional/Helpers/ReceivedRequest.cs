@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Specialized;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional.Helpers
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
 {
     public class ReceivedRequest
     {

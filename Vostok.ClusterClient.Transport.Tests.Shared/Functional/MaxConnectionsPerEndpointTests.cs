@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
-using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Transport.Tests.Functional.Helpers;
+using Vostok.Clusterclient.Core.Model;
+using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
     public class MaxConnectionsPerEndpointTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()

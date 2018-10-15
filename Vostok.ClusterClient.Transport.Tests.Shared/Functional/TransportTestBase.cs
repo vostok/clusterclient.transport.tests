@@ -4,11 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
-using Vostok.ClusterClient.Core.Model;
-using Vostok.ClusterClient.Core.Transport;
+using Vostok.Clusterclient.Core.Model;
+using Vostok.Clusterclient.Core.Transport;
 using Vostok.Logging.Abstractions;
 
-namespace Vostok.ClusterClient.Transport.Tests.Functional
+namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
     [TestFixture]
     public abstract class TransportTestsBase<TConfig>
@@ -32,14 +32,14 @@ namespace Vostok.ClusterClient.Transport.Tests.Functional
             transport = config.CreateTransport(new TestTransportSettings(), log);
         }
 
-        protected Task<Response> SendAsync(Request request, TimeSpan? timeout = null, CancellationToken cancellationToken = default(CancellationToken))
+        protected Task<Response> SendAsync(Request request, TimeSpan? timeout = null, CancellationToken cancellationToken = default, TimeSpan? connectionTimeout = null)
         {
-            return transport.SendAsync(request, timeout ?? 1.Minutes(), cancellationToken);
+            return transport.SendAsync(request, connectionTimeout, timeout ?? 1.Minutes(), cancellationToken);
         }
 
-        protected Response Send(Request request, TimeSpan? timeout = null, CancellationToken cancellationToken = default(CancellationToken))
+        protected Response Send(Request request, TimeSpan? timeout = null, CancellationToken cancellationToken = default, TimeSpan? connectionTimeout = null)
         {
-            return transport.SendAsync(request, timeout ?? 1.Minutes(), cancellationToken).GetAwaiter().GetResult();
+            return transport.SendAsync(request, connectionTimeout, timeout ?? 1.Minutes(), cancellationToken).GetAwaiter().GetResult();
         }
 
         protected void SetSettings(Action<TestTransportSettings> update)
@@ -63,7 +63,6 @@ namespace Vostok.ClusterClient.Transport.Tests.Functional
         public int MaxConnectionsPerEndpoint { get; set; } = 10 * 1000;
         public long? MaxResponseBodySize { get; set; }
         public int ConnectionAttempts { get; set; } = 2;
-        public TimeSpan ConnectionTimeout { get; set; } = TimeSpan.FromMilliseconds(750);
         public Func<int, byte[]> BufferFactory { get; set; } = size => new byte[size];
         public Predicate<long?> UseResponseStreaming { get; set; } = _ => false;
         public bool AllowAutoRedirect { get; set; }
