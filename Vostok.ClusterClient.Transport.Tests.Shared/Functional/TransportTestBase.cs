@@ -62,7 +62,6 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
         public IWebProxy Proxy { get; set; }
         public int MaxConnectionsPerEndpoint { get; set; } = 10 * 1000;
         public long? MaxResponseBodySize { get; set; }
-        public int ConnectionAttempts { get; set; } = 2;
         public Func<int, byte[]> BufferFactory { get; set; } = size => new byte[size];
         public Predicate<long?> UseResponseStreaming { get; set; } = _ => false;
         public bool AllowAutoRedirect { get; set; }
