@@ -20,5 +20,5 @@ full-build > notests:
     - vostok.logging.abstractions
     - vostok.clusterclient.core@develop
     - vostok.devtools
-    - vostok.commons.threading
-    - vostok.commons.testing
+    - vostok.commons.threading/src
+    - vostok.commons.testing/src
