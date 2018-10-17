@@ -115,7 +115,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
         }
 
         [Test]
-        public void Should_return_response_with_correct_content_length_when_buffer_factory_is_overriden()
+        public virtual void Should_return_response_with_correct_content_length_when_buffer_factory_is_overriden()
         {
             SetSettings(s => s.BufferFactory = size => new byte[size * 2]);
             var content = ThreadSafeRandom.NextBytes(1234);
