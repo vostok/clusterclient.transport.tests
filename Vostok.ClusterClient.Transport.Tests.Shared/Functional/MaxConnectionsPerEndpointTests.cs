@@ -10,7 +10,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class MaxConnectionsPerEndpointTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class MaxConnectionsPerEndpointTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         [TestCase(1)]

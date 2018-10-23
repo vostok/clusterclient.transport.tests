@@ -5,7 +5,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class StatusCodeReceivingTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class StatusCodeReceivingTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         // 2xx

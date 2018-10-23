@@ -5,7 +5,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class HeaderReceivingTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class HeaderReceivingTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         [TestCase(HeaderNames.ContentEncoding, "identity")]

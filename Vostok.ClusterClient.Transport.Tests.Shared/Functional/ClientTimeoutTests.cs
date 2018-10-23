@@ -7,7 +7,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class ClientTimeoutTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class ClientTimeoutTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new ()
     {
         [TestCase(-1)]

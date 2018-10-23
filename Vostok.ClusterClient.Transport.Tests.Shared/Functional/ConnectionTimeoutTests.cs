@@ -8,7 +8,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class ConnectionTimeoutTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class ConnectionTimeoutTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         private readonly Uri dummyServerUrl = new Uri("http://9.0.0.1:10/");

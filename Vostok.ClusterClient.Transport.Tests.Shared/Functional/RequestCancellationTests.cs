@@ -7,7 +7,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class RequestCancellationTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class RequestCancellationTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         private readonly CancellationTokenSource tokenSource;

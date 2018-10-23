@@ -16,8 +16,6 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.Web" Condition="'$(TargetFramework)' == 'net471'" />
     <Reference Include="Vostok.ClusterClient.Core">
       <SpecificVersion>False</SpecificVersion>

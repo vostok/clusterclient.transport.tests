@@ -5,7 +5,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class MethodSendingTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class MethodSendingTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         [TestCase(RequestMethods.Delete)]

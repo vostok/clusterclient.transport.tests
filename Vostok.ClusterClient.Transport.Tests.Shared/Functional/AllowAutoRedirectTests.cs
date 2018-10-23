@@ -7,7 +7,7 @@ using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class AllowAutoRedirectTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class AllowAutoRedirectTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         private void Handler(HttpListenerContext ctx)

@@ -10,7 +10,7 @@ using Vostok.Commons.Threading;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {
-    public class ContentSendingTests<TConfig> : TransportTestsBase<TConfig>
+    public abstract class ContentSendingTests<TConfig> : TransportTestsBase<TConfig>
         where TConfig : ITransportTestConfig, new()
     {
         [TestCase(0)]
