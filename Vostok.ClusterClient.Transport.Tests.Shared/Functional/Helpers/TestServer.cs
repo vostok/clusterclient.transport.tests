@@ -11,27 +11,15 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
     public class TestServer : IDisposable
     {
         private readonly HttpListener listener;
-        private readonly int port;
-        private readonly string host;
         private volatile ReceivedRequest lastRequest;
 
         public TestServer()
         {
-            port = FreeTcpPortFinder.GetFreePort();
-            host = Dns.GetHostName();
+            Port = FreeTcpPortFinder.GetFreePort();
+            Host = Dns.GetHostName();
             listener = new HttpListener();
-            listener.Prefixes.Add($"http://+:{port}/");
+            listener.Prefixes.Add($"http://+:{Port}/");
         }
-
-        public ReceivedRequest LastRequest => lastRequest;
-
-        public Uri Url => new Uri($"http://{host}:{port}/");
-
-        public string Host => host;
-
-        public int Port => port;
-
-        public bool BufferRequestBody { get; set; } = true;
 
         public static TestServer StartNew(Action<HttpListenerContext> handle)
         {
@@ -41,6 +29,16 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
 
             return server;
         }
+
+        public ReceivedRequest LastRequest => lastRequest;
+
+        public Uri Url => new Uri($"http://{Host}:{Port}/");
+
+        public string Host { get; }
+
+        public int Port { get; }
+
+        public bool BufferRequestBody { get; set; } = true;
 
         public void Start(Action<HttpListenerContext> handle)
         {
@@ -79,12 +77,12 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
                 Url = request.Url,
                 Method = request.HttpMethod,
                 Headers = request.Headers,
-                Query = HttpUtility.ParseQueryString(request.Url.Query),
+                Query = HttpUtility.ParseQueryString(request.Url.Query)
             };
 
             if (BufferRequestBody)
             {
-                var bodyStream = new MemoryStream(Math.Max(4, (int) request.ContentLength64));
+                var bodyStream = new MemoryStream(Math.Max(4, (int)request.ContentLength64));
 
                 request.InputStream.CopyTo(bodyStream);
 
