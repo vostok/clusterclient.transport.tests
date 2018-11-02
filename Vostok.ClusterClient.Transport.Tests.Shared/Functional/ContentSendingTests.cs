@@ -6,6 +6,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Vostok.Clusterclient.Core.Model;
 using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
+using Vostok.Commons.Testing;
 using Vostok.Commons.Threading;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
@@ -110,9 +111,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 
                 Action action = () => Send(request);
 
-                var error = action.Should().ThrowExactly<StreamAlreadyUsedException>().Which;
-
-                Console.Out.WriteLine(error);
+                action.Should().ThrowExactly<StreamAlreadyUsedException>().Which.ShouldBePrinted();
             }
         }
 
