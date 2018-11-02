@@ -3,16 +3,7 @@ src:
     target: None
     configuration: None
 
-notests *default:
-  build:
-    target: None
-    configuration: None
-
-  install:
-  
-  deps:
-
-full-build > notests:
+full-build:
   build:
     target: None
     configuration: None
@@ -21,4 +12,5 @@ full-build > notests:
     - vostok.clusterclient.core@develop
     - vostok.devtools
     - vostok.commons.threading/src
+    - vostok.commons.testing/src
     - vostok.commons.testing/src
