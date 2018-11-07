@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -14,12 +15,37 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
         where TConfig : ITransportTestConfig, new()
     {
         [Test]
+        public void Should_send_large_request_body()
+        {
+            var size = 10 * Constants.Gigabytes;
+
+            using (var cts = new CancellationTokenSource())
+            using (var server = TestServer.StartNew(
+                ctx => { ctx.Response.StatusCode = 200; }))
+            {
+                server.BufferRequestBody = false;
+
+                var sendTask = SendAsync(Request.Post(server.Url).WithContent(new LargeStream(size)), 10.Minutes(), cts.Token);
+                var memoryMonitor = MonitorMemoryAsync(cts.Token, Process.GetCurrentProcess().WorkingSet64 + 8 * Constants.Megabytes);
+                
+                var task = Task.WhenAny(memoryMonitor, sendTask).GetAwaiter().GetResult();
+                if (task == memoryMonitor && memoryMonitor.GetAwaiter().GetResult())
+                {
+                    cts.Cancel();
+                    Assert.Fail();
+                }
+
+                server.LastRequest.BodySize.Should().Be(size);
+            }
+        }
+        
+        [Test]
         public void Should_read_large_response_body()
         {
             var serverBuffer = new byte[Constants.Megabytes];
             var clientBuffer = new byte[Constants.Megabytes];
 
-            var iterations = 10000;
+            var iterations = 10 * 1024;
             
             using (var cts = new CancellationTokenSource())
             using (var server = TestServer.StartNew(
@@ -60,7 +86,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                         }
                     });
 
-                var memoryMonitor = MonitorMemoryAsync(cts.Token, 500 * Constants.Megabytes);
+                var memoryMonitor = MonitorMemoryAsync(cts.Token, Process.GetCurrentProcess().WorkingSet64 + 8 * Constants.Megabytes);
 
                 var task = Task.WhenAny(memoryMonitor, receive).GetAwaiter().GetResult();
                 if (task == memoryMonitor && memoryMonitor.GetAwaiter().GetResult())
@@ -91,5 +117,58 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 
             return false;
         }
+        
+        
+        #region LargeStream
+
+        private class LargeStream : Stream
+        {
+            private readonly long length;
+            private long read;
+
+            public LargeStream(long length)
+            {
+                this.length = length;
+            }
+
+            public override void Flush()
+            {
+            }
+
+            public override long Seek(long offset, SeekOrigin origin)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override void SetLength(long value)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                var r = (int) Math.Max(0, Math.Min(count, length - read));
+                read += r;
+                return r;
+            }
+
+            public override void Write(byte[] buffer, int offset, int count)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override bool CanRead => true;
+            public override bool CanSeek => false;
+            public override bool CanWrite => false;
+            public override long Length => throw new NotSupportedException();
+            public override long Position
+            {
+                get => throw new NotSupportedException();
+                set => throw new NotSupportedException();
+            }
+        }
+
+        #endregion
+
     }
 }
