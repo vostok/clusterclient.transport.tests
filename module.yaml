@@ -13,3 +13,4 @@ full-build:
     - vostok.devtools
     - vostok.commons.threading/src
     - vostok.commons.testing/src
+    - vostok.commons.environment/src

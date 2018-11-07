@@ -30,5 +30,6 @@
     <Compile Include="..\..\vostok.commons.threading\Vostok.Commons.Threading\ThreadSafeRandom.cs" Link="Commons\ThreadSafeRandom.cs" />
     <Compile Include="..\..\vostok.commons.testing\Vostok.Commons.Testing\AssertionAssertions.cs" Link="Commons\AssertionAssertions.cs" />
     <Compile Include="..\..\vostok.commons.testing\Vostok.Commons.Testing\ExceptionAssertions.cs" Link="Commons\ExceptionAssertions.cs" />
+    <Compile Include="..\..\vostok.commons.environment\Vostok.Commons.Environment\RuntimeDetector.cs" Link="Commons\RuntimeDetector.cs" />
   </ItemGroup>
 </Project>
