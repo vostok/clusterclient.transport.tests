@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using NUnit.Framework;
 using Vostok.Clusterclient.Core.Model;
 using Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers;
@@ -25,7 +26,6 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                 ctx =>
                 {
                     ctx.Response.StatusCode = 200;
-                    
                     for (var i = 0; i < iterations && !cts.Token.IsCancellationRequested; ++i)
                         ctx.Response.OutputStream.Write(serverBuffer, 0, serverBuffer.Length);
                 }))
@@ -37,12 +37,12 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                     {
                         try
                         {
-                            var response = Send(Request.Put(server.Url));
+                            var response = Send(Request.Put(server.Url), 10.Minutes());
 
                             using (var stream = response.Stream)
                             {
                                 long count = 0;
-                                while (true)
+                                while (!cts.Token.IsCancellationRequested)
                                 {
                                     var c = stream.Read(clientBuffer, 0, clientBuffer.Length);
                                     if (c == 0)
@@ -69,7 +69,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                     Assert.Fail();
                 }
 
-                receive.GetAwaiter().GetResult().Should().Be(iterations * serverBuffer.Length);
+                receive.GetAwaiter().GetResult().Should().Be((long) iterations * serverBuffer.Length);
             }
         }
 
