@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,10 +15,10 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
         private readonly HttpListener listener;
         private volatile ReceivedRequest lastRequest;
 
-        public TestServer()
+        private TestServer()
         {
             Port = FreeTcpPortFinder.GetFreePort();
-            Host = Dns.GetHostName();
+            Host = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? Dns.GetHostName() : "localhost";
             listener = new HttpListener();
             listener.Prefixes.Add($"http://+:{Port}/");
         }
