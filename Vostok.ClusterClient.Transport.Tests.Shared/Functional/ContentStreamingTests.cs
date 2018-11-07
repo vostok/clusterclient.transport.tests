@@ -50,12 +50,13 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                                     count += c;
                                 }
 
-                                count.Should().Be(serverBuffer.Length * iterations);
+                                return count;
                             }
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
+                            return 0;
                         }
                     });
 
@@ -67,6 +68,8 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                     cts.Cancel();
                     Assert.Fail();
                 }
+
+                receive.GetAwaiter().GetResult().Should().Be(iterations * serverBuffer.Length);
             }
         }
 
