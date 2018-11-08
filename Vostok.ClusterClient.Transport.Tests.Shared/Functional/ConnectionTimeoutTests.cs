@@ -14,7 +14,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
         private readonly Uri dummyServerUrl = new Uri("http://9.0.0.1:10/");
 
         [Test]
-        public void Should_timeout_on_connection_to_a_blackhole_by_connect_timeout()
+        public virtual void Should_timeout_on_connection_to_a_blackhole_by_connect_timeout()
         {
             var task = SendAsync(Request.Get(dummyServerUrl), connectionTimeout: 250.Milliseconds());
 
