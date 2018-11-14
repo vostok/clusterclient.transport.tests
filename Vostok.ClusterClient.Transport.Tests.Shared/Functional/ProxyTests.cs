@@ -11,7 +11,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
         where TConfig : ITransportTestConfig, new()
     {
         [Test]
-        public void Should_send_request_to_proxy_if_setting_is_true()
+        public virtual void Should_send_request_to_proxy_if_setting_is_true()
         {
             using (var proxy = TestServer.StartNew(ctx => ctx.Response.StatusCode = 201))
             {
