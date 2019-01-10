@@ -26,7 +26,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                 server.BufferRequestBody = false;
 
                 var sendTask = SendAsync(Request.Post(server.Url).WithContent(new LargeStream(size)), 10.Minutes(), cts.Token);
-                var memoryMonitor = MonitorMemoryAsync(cts.Token, Process.GetCurrentProcess().WorkingSet64 + 8 * Constants.Megabytes);
+                var memoryMonitor = MonitorMemoryAsync(cts.Token, Process.GetCurrentProcess().WorkingSet64 + 250 * Constants.Megabytes);
                 
                 var task = Task.WhenAny(memoryMonitor, sendTask).GetAwaiter().GetResult();
                 if (task == memoryMonitor && memoryMonitor.GetAwaiter().GetResult())
@@ -86,7 +86,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                         }
                     });
 
-                var memoryMonitor = MonitorMemoryAsync(cts.Token, Process.GetCurrentProcess().WorkingSet64 + 8 * Constants.Megabytes);
+                var memoryMonitor = MonitorMemoryAsync(cts.Token, Process.GetCurrentProcess().WorkingSet64 + 250 * Constants.Megabytes);
 
                 var task = Task.WhenAny(memoryMonitor, receive).GetAwaiter().GetResult();
                 if (task == memoryMonitor && memoryMonitor.GetAwaiter().GetResult())
@@ -99,7 +99,7 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
             }
         }
 
-        private async Task<bool> MonitorMemoryAsync(CancellationToken ctx, long limit)
+        private static async Task<bool> MonitorMemoryAsync(CancellationToken ctx, long limit)
         {
             try
             {
