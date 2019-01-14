@@ -1,16 +1,12 @@
-src:
-  build:
-    target: None
-    configuration: None
-
 full-build:
   build:
     target: None
     configuration: None
+
   deps:
+    - vostok.devtools
     - vostok.logging.abstractions
     - vostok.clusterclient.core
-    - vostok.devtools
     - vostok.commons.threading/src
     - vostok.commons.testing/src
     - vostok.commons.environment/src
