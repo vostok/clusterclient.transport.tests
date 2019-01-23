@@ -1,7 +1,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using Vostok.Clusterclient.Core.Model;
-using Vostok.Clusterclient.Transport.Tests.Shared.Utilities;
+using Vostok.Commons.Helpers.Network;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
 {

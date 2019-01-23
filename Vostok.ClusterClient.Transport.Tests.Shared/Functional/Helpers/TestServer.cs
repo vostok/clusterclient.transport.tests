@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Vostok.Clusterclient.Transport.Tests.Shared.Utilities;
+using Vostok.Commons.Helpers.Network;
 
 namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional.Helpers
 {

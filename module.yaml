@@ -10,3 +10,4 @@ full-build:
     - vostok.commons.threading/src
     - vostok.commons.testing/src
     - vostok.commons.environment/src
+    - vostok.commons.helpers/src
