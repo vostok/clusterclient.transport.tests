@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -99,6 +100,24 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                 Send(request);
 
                 server.LastRequest.BodySize.Should().Be(requestBodySize);
+            }
+        }
+
+        [Test]
+        public void Should_be_able_to_send_composite_request_body()
+        {
+            using (var server = TestServer.StartNew(ctx => ctx.Response.StatusCode = 200))
+            {
+                var content1 = ThreadSafeRandom.NextBytes(ThreadSafeRandom.Next(1000));
+                var content2 = ThreadSafeRandom.NextBytes(ThreadSafeRandom.Next(5000));
+                var content3 = ThreadSafeRandom.NextBytes(ThreadSafeRandom.Next(10000));
+
+                var request = Request.Put(server.Url).WithContent(new [] {content1, content2, content3});
+
+                Send(request);
+
+                server.LastRequest.Headers[HeaderNames.ContentLength].Should().Be((content1.Length + content2.Length + content3.Length).ToString());
+                server.LastRequest.Body.Should().Equal(content1.Concat(content2).Concat(content3));
             }
         }
 
