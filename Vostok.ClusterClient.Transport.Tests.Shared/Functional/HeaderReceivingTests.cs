@@ -33,5 +33,21 @@ namespace Vostok.Clusterclient.Transport.Tests.Shared.Functional
                 response.Headers[headerName].Should().Be(headerValue);
             }
         }
+
+        [Test]
+        public void Should_be_able_to_receive_content_length_header_without_body_in_response_to_a_HEAD_request()
+        {
+            using (var server = TestServer.StartNew(
+                ctx =>
+                {
+                    ctx.Response.StatusCode = 200;
+                    ctx.Response.ContentLength64 = 123;
+                }))
+            {
+                var response = Send(Request.Head(server.Url));
+
+                response.Headers["Content-Length"].Should().Be("123");
+            }
+        }
     }
 }
